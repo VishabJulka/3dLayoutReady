@@ -869,9 +869,16 @@ window.onload = function () {
 
 
     //for input feild copy to another feild
+    var dst1 = document.getElementById("mynumber2");
+    var dst2 = document.getElementById("mynumber1");
     var src = document.getElementById("one"),
     concatenate,
     i=0,
+    dot=0,
+    h=1,
+    dot1=0,
+    h1=1,
+   
         dst = document.getElementById("two"),
         src1 = document.getElementById("zvalue");
     src.addEventListener('input', function () {
@@ -881,19 +888,85 @@ window.onload = function () {
 
     function concat()
     {
-    
-        concatenate = concatenate % 10;
-        dst.value = dst.value + concatenate;
+        if(dot==1)
+        {
+            dot++;
+            dst.value = dst.value + ".";
+            dst1.value = dst1.value + ".";
+            dst2.value = dst2.value + ".";
+
+        }
+        else if(dot>=2 && dot<5){
+            concatenate = concatenate * Math.pow(10,h);
+            concatenate = concatenate % 10;
+            dst.value = dst.value + concatenate;
+            dst1.value = dst1.value + concatenate;
+            dst2.value = dst2.value + concatenate;
+            h++;
+            dot++;
+        }
+        if(dot==0){
+            dot++;
+            concatenate = concatenate % 10;
+            dst.value = dst.value + concatenate;
+            dst1.value = dst1.value + concatenate; 
+            dst2.value = dst2.value + concatenate;
+        }
+        if(dot==5)
+        {
+           src.value = "";
+           dot=0;
+           h=1;
+        }
+       
+        
     }
     function concat1()
     {
         if(i==0)
         {
             dst.value = dst.value + ":";
+            dst1.value = dst1.value + ":";
+            dst2.value = dst2.value + ".";
             i=1;
         }
-        concatenate = concatenate % 10;
-        dst.value = dst.value + concatenate;
+
+        if(dot1==1)
+        {
+            dot1++;
+            dst.value = dst.value + ".";
+            dst1.value = dst1.value + ".";
+
+        }
+        else if(dot1>=2 && dot1<5){
+            concatenate = concatenate * Math.pow(10,h1);
+            concatenate = concatenate % 10;
+            dst.value = dst.value + concatenate;
+            dst1.value = dst1.value + concatenate;
+            dst2.value = dst2.value + concatenate;
+            h1++;
+            dot1++;
+        }
+        if(dot1 == 0){
+            dot1++;
+            concatenate = concatenate % 10;
+            dst.value = dst.value + concatenate;
+            dst1.value = dst1.value + concatenate;
+            dst2.value = dst2.value + concatenate;
+        }
+        if(dot1==5)
+        {
+           src1.value = "";
+           dot1=0;
+           h1=1;
+           i=0;
+        }
+
+
+
+        
+        // concatenate = concatenate % 10;
+        // dst.value = dst.value + concatenate;
     }
 
     src1.addEventListener('input',function() {
@@ -904,6 +977,8 @@ window.onload = function () {
 }
 
 //for generating randon number
+var randomnumber;
+var dot2=0;
 var prev_handler = window.onload;
 window.onload = function () {
     if (prev_handler) {
@@ -911,10 +986,39 @@ window.onload = function () {
     }
     var minNumber = 2; // The minimum number you want
     var maxNumber = 4; // The maximum number you want
-    var randomnumber = Math.floor(Math.random() * (maxNumber + 1) + minNumber); // Generates random number
+    randomnumber = Math.floor(Math.random() * (maxNumber + 1) + minNumber); // Generates random number
     document.getElementById("myNumber").value = randomnumber; // Sets content of <div> to number
 
     var dst = document.getElementById("two");
     dst.value = randomnumber + ":" + "";
     return false; // Returns false just to tidy everything up
 }
+
+
+
+    function FccValue()
+    {
+        document.getElementById("mynumber1").value = randomnumber; 
+
+        var dst2 = document.getElementById("mynumber1");
+        dst2.value = randomnumber + ":" + "";
+    }
+
+    function SccValue()
+    { 
+        document.getElementById("mynumber").value = randomnumber; 
+        var dst = document.getElementById("two");
+        dst.value = "";
+    }
+
+    function BccValue()
+    { 
+        document.getElementById("mynumber2").value = randomnumber; 
+        
+        var dst1 = document.getElementById("mynumber2");
+        dst1.value = randomnumber + ":" + "";
+
+    }
+
+
+   
